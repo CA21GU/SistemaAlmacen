@@ -1,0 +1,41 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+
+<h2>Productos con stock bajo</h2>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Stock actual</th>
+            <th>Stock mínimo</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for producto in productos %}
+
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.stock_minimo }}</td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="3">
+                No existen productos con stock bajo.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

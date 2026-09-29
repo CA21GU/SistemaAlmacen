@@ -1,0 +1,39 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+
+<h2>Panel principal</h2>
+
+<div class="card">
+    <h3>Resumen del sistema</h3>
+
+    <p>
+        <strong>Productos activos:</strong>
+        {{ total_productos }}
+    </p>
+
+    <p>
+        <strong>Productos con stock bajo:</strong>
+        {{ productos_stock_bajo }}
+    </p>
+</div>
+
+<div class="card">
+    <h3>Últimas ventas</h3>
+
+    {% if ventas %}
+        <ul>
+            {% for venta in ventas %}
+                <li>
+                    Venta #{{ venta.id }}
+                    - ${{ venta.total }}
+                    - {{ venta.fecha|date:"d/m/Y H:i" }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No existen ventas registradas.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

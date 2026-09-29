@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema de Gestión de Almacén</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin-top: 0;
+        }
+
+        nav a {
+            color: white;
+            margin-right: 18px;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            background-color: #222;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background-color: #b00020;
+        }
+
+        .alert {
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #fff3cd;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        .errorlist {
+            color: #b00020;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema de Gestión de Almacén</h1>
+
+    <nav>
+    <a href="{% url 'inicio' %}">Inicio</a>
+    <a href="{% url 'productos' %}">Productos</a>
+    <a href="{% url 'stock_bajo' %}">Stock bajo</a>
+    <a href="{% url 'ventas' %}">Ventas</a>
+    <a href="{% url 'registrar_venta' %}">Nueva venta</a>
+
+    {% if user.is_authenticated %}
+        <span>
+            Usuario: {{ user.username }}
+        </span>
+
+        <form method="post"
+              action="{% url 'logout' %}"
+              style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">
+                Cerrar sesión
+            </button>
+        </form>
+    {% endif %}
+    </nav>
+</header>
+
+
+<main>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+</body>
+</html>

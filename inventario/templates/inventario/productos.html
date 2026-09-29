@@ -1,0 +1,71 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+
+<h2>Productos</h2>
+
+<a class="btn" href="{% url 'producto_crear' %}">
+    Agregar producto
+</a>
+
+<br><br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Stock mínimo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for producto in productos %}
+
+        <tr>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>${{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.stock_minimo }}</td>
+
+            <td>
+                {% if producto.stock_bajo %}
+                    Stock bajo
+                {% else %}
+                    Normal
+                {% endif %}
+            </td>
+
+            <td>
+                <a class="btn"
+                   href="{% url 'producto_editar' producto.id %}">
+                    Editar
+                </a>
+
+                <a class="btn btn-danger"
+                   href="{% url 'producto_eliminar' producto.id %}">
+                    Eliminar
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="7">
+                No existen productos registrados.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

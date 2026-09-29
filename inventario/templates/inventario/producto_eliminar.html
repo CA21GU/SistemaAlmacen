@@ -1,0 +1,30 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+
+<h2>Eliminar producto</h2>
+
+<div class="card">
+
+    <p>
+        ¿Está seguro de eliminar el producto
+        <strong>{{ producto.nombre }}</strong>?
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button class="btn btn-danger" type="submit">
+            Sí, eliminar
+        </button>
+
+        <a class="btn" href="{% url 'productos' %}">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
